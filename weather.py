@@ -73,7 +73,7 @@ def load_data_from_csv(csv_file):
         next(reader) # skipping over the header
         for line in reader: 
             if line: # ignore the blank lines between the data rows. checks line if line is True or False. It's True when the row is not empty. 
-                line[1]= int(line[1])
+                line[1]= int(line[1]) # Type cast to int
                 line[2]= int(line[2])
                 new_list.append(line)
 
@@ -146,7 +146,7 @@ def generate_summary(weather_data):
 
     find_min(min_value)
     find_max(max_value)
-    a,b=find_min(min_value)# return 2 param (min, location)which is touple. Save it in 2 variables.
+    a,b=find_min(min_value)# returns 2 param (min, location)which is touple. Save it in 2 variables.
     c,d=find_max(max_value)
     date_for_lowtemp=(convert_date (weather_data[b][0])) #(b) is index that you are capturing in variable
     date_for_hightemp=(convert_date (weather_data[d][0]))
@@ -162,13 +162,7 @@ def generate_summary(weather_data):
     result += f"  The average low this week is {average_min}.\n"
     result += f"  The average high this week is {average_max}.\n"
     return result   
-# print(generate_summary([
-#             ["2021-07-02T07:00:00+08:00", 49, 67],
-#             ["2021-07-03T07:00:00+08:00", 57, 68],
-#             ["2021-07-04T07:00:00+08:00", 56, 62],
-#             ["2021-07-05T07:00:00+08:00", 55, 61],
-#             ["2021-07-06T07:00:00+08:00", 53, 62]
-#         ]))
+
 
 """Outputs a summary for the given weather data.
 
@@ -181,15 +175,7 @@ def generate_summary(weather_data):
 
 
 def generate_daily_summary(weather_data):
-    """Outputs a daily summary for the given weather data.
-
-    Args:
-        weather_data: A list of lists, where each sublist represents a day of weather data.
-    Returns:
-        A string containing the summary information.
-    """
-    min_value=[]
-    max_value=[]
+    
     output = ""
     for row in weather_data:
         output+= f"---- {convert_date(row[0])} ----\n"
@@ -198,12 +184,10 @@ def generate_daily_summary(weather_data):
         output+="\n"
     
     return output
-# print(generate_daily_summary([
-#             ["2020-06-19T07:00:00+08:00", 47, 46],
-#             ["2020-06-20T07:00:00+08:00", 51, 67],
-#             ["2020-06-21T07:00:00+08:00", 58, 72],
-#             ["2020-06-22T07:00:00+08:00", 59, 71],
-#             ["2020-06-23T07:00:00+08:00", 52, 71],
-#             ["2020-06-24T07:00:00+08:00", 52, 67],
-#             ["2020-06-25T07:00:00+08:00", 48, 66],
-#             ["2020-06-26T07:00:00+08:00", 53, 66]]))
+"""Outputs a daily summary for the given weather data.
+
+    Args:
+        weather_data: A list of lists, where each sublist represents a day of weather data.
+    Returns:
+        A string containing the summary information.
+    """
