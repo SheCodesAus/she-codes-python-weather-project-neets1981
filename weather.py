@@ -92,7 +92,7 @@ def load_data_from_csv(csv_file):
 def find_min(weather_data):
     if weather_data ==[]:
         return ()
-    get_min=float(weather_data[0])
+    get_min=float(weather_data[0])# Save 0th value of weather_data list in get_min variable
     min_location=0
     index=0
     for num in weather_data:
@@ -135,27 +135,49 @@ def find_max(weather_data):
 
 def generate_summary(weather_data):
     # new_list1=[]
-    print (len(weather_data))
+    length=(len(weather_data))
+    min_value=[]
+    max_value=[]
+    result=""
     for i in (weather_data):
-        if i: 
-            i[1]= int(i[1])
-        find_min(i[1])
-    print(find_min(i[1]))
-            
+        if i !=[]: 
+            min_value.append(int(i[1])) # create list for min value [49, 57, 56, 55, 53]
+            max_value.append(int(i[2])) # create list for max value
 
-    # print (new_list1)
-    # for x in new_list1:
-    #     print (find_min(new_list1))
-    #     print (find_max(new_list1))
+    find_min(min_value)
+    find_max(max_value)
+    a,b=find_min(min_value)# return 2 param (min, location)which is touple. Save it in 2 variables.
+    c,d=find_max(max_value)
+    date_for_lowtemp=(convert_date (weather_data[b][0])) #(b) is index that you are capturing in variable
+    date_for_hightemp=(convert_date (weather_data[d][0]))
+    
+    average_min= format_temperature(convert_f_to_c(calculate_mean(min_value)))
+    average_max=format_temperature(convert_f_to_c(calculate_mean(max_value)))
+    min_temprature= (format_temperature(convert_f_to_c(a)))
+    max_temprature= format_temperature(convert_f_to_c(c))
+    
+    result += f"{length} Day Overview\n"
+    result += f"  The lowest temperature will be {min_temprature}, and will occur on {date_for_lowtemp}.\n"
+    result += f"  The highest temperature will be {max_temprature}, and will occur on {date_for_hightemp}.\n"
+    result += f"  The average low this week is {average_min}.\n"
+    result += f"  The average high this week is {average_max}.\n"
+    return result   
+# print(generate_summary([
+#             ["2021-07-02T07:00:00+08:00", 49, 67],
+#             ["2021-07-03T07:00:00+08:00", 57, 68],
+#             ["2021-07-04T07:00:00+08:00", 56, 62],
+#             ["2021-07-05T07:00:00+08:00", 55, 61],
+#             ["2021-07-06T07:00:00+08:00", 53, 62]
+#         ]))
 
-    """Outputs a summary for the given weather data.
+"""Outputs a summary for the given weather data.
 
     Args:
         weather_data: A list of lists, where each sublist represents a day of weather data.
     Returns:
         A string containing the summary information.
     """
-    pass
+    
 
 
 def generate_daily_summary(weather_data):
@@ -166,11 +188,22 @@ def generate_daily_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
+    min_value=[]
+    max_value=[]
     output = ""
     for row in weather_data:
-        output = output + "---- "
-        output = output + convert_date(row[0])
-        output = output + " ----\n"
-
-
+        output+= f"---- {convert_date(row[0])} ----\n"
+        output+= f"  Minimum Temperature: {format_temperature(convert_f_to_c(int(row[1])))}\n"
+        output+= f"  Maximum Temperature: {format_temperature(convert_f_to_c(int(row[2])))}\n"
+        output+="\n"
+    
     return output
+# print(generate_daily_summary([
+#             ["2020-06-19T07:00:00+08:00", 47, 46],
+#             ["2020-06-20T07:00:00+08:00", 51, 67],
+#             ["2020-06-21T07:00:00+08:00", 58, 72],
+#             ["2020-06-22T07:00:00+08:00", 59, 71],
+#             ["2020-06-23T07:00:00+08:00", 52, 71],
+#             ["2020-06-24T07:00:00+08:00", 52, 67],
+#             ["2020-06-25T07:00:00+08:00", 48, 66],
+#             ["2020-06-26T07:00:00+08:00", 53, 66]]))
